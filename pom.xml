@@ -181,7 +181,7 @@
                 <version>${wss4j.orbit.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.wso2.carbon.data</groupId>
+                <groupId>co.innovation.lab.wso2.dss</groupId>
                 <artifactId>org.wso2.carbon.dataservices.core</artifactId>
                 <version>${carbon-data.version}</version>
             </dependency>
@@ -400,7 +400,7 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.wso2.carbon.data</groupId>
+                <groupId>co.innovation.lab.wso2.dss</groupId>
                 <artifactId>org.wso2.carbon.dataservices.fileupload.stub</artifactId>
                 <version>${carbon-data.version}</version>
                 <scope>test</scope>
@@ -412,13 +412,13 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.wso2.carbon.data</groupId>
+                <groupId>co.innovation.lab.wso2.dss</groupId>
                 <artifactId>org.wso2.carbon.dataservices.stub</artifactId>
                 <version>${carbon-data.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.wso2.carbon.data</groupId>
+                <groupId>co.innovation.lab.wso2.dss</groupId>
                 <artifactId>org.wso2.carbon.dataservices.task.stub</artifactId>
                 <version>${carbon-data.version}</version>
                 <scope>test</scope>
@@ -579,6 +579,7 @@
         <carbon.multitenancy.version>4.6.0</carbon.multitenancy.version>
         <carbon.identity.version>5.2.0</carbon.identity.version>
         <identity.auth.saml2.version>5.1.2</identity.auth.saml2.version>
+        <identity.auth.oauth2.version>1.0.0</identity.auth.oauth2.version>
         <testng.version>6.8</testng.version>
         <carbon.kernel.version>4.4.9</carbon.kernel.version>
         <eclipse.version>3.2.0</eclipse.version>
