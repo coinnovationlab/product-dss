@@ -23,7 +23,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.wso2.carbon.data</groupId>
+            <groupId>co.innovation.lab.wso2.dss</groupId>
             <artifactId>org.wso2.carbon.dataservices.core</artifactId>
             <version>4.3.3-SNAPSHOT</version>
         </dependency>

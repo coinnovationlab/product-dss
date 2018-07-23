@@ -123,10 +123,10 @@
                                     org.wso2.carbon.commons:org.wso2.carbon.soaptracer.feature:${carbon.commons.version}
                                 </featureArtifactDef>
                                 <featureArtifactDef>
-                                    org.wso2.carbon.data:org.wso2.carbon.dataservices.feature:${carbon-data.version}
+                                    co.innovation.lab.wso2.dss:org.wso2.carbon.dataservices.feature:${carbon-data.version}
                                 </featureArtifactDef>
                                 <featureArtifactDef>
-                                    org.wso2.carbon.data:org.wso2.carbon.dataservices.task.feature:${carbon-data.version}
+                                    co.innovation.lab.wso2.dss:org.wso2.carbon.dataservices.task.feature:${carbon-data.version}
                                 </featureArtifactDef>
                                 <featureArtifactDef>
                                     org.wso2.carbon.commons:org.wso2.carbon.ndatasource.feature:${carbon.commons.version}
@@ -242,7 +242,7 @@
                                 <!--<featureArtifactDef> org.wso2.carbon:org.wso2.carbon.cloud.gateway.agent.feature:${carbon.platform.patch.version.402}</featureArtifactDef>-->
 
                                 <featureArtifactDef>
-                                    org.wso2.carbon.data:org.wso2.carbon.cassandra-jdbc-1.2.5.server.feature:${carbon-data.version}
+                                    co.innovation.lab.wso2.dss:org.wso2.carbon.cassandra-jdbc-1.2.5.server.feature:${carbon-data.version}
                                 </featureArtifactDef>
 
                                 <!--<featureArtifactDef>-->
@@ -312,6 +312,9 @@
                                 </featureArtifactDef>
                                 <featureArtifactDef>
                                     org.wso2.carbon.commons:org.wso2.carbon.tenant.mgt.common.feature:${carbon.commons.version}
+                                </featureArtifactDef>
+                                <featureArtifactDef>
+                                    co.innovation.lab:org.wso2.carbon.identity.authenticator.oauth2.sso.feature:${identity.auth.oauth2.version}
                                 </featureArtifactDef>
                                 <!-- END - Multitenancy related -->
                             </featureArtifacts>
@@ -695,6 +698,10 @@
                                     <id>org.wso2.carbon.security.mgt.feature.group</id>
                                     <version>${carbon.identity.version}</version>
                                 </feature>
+                                <feature>
+                                    <id>org.wso2.carbon.identity.authenticator.oauth2.sso.feature.group</id>
+                                    <version>${identity.auth.oauth2.version}</version>
+                                </feature>
                                 <!-- END - Multitenancy related -->
                             </features>
                         </configuration>
@@ -999,6 +1006,10 @@
                                 <feature>
                                     <id>org.wso2.carbon.security.mgt.feature.group</id>
                                     <version>${carbon.identity.version}</version>
+                                </feature>
+                                <feature>
+                                    <id>org.wso2.carbon.identity.authenticator.oauth2.sso.feature.group</id>
+                                    <version>${identity.auth.oauth2.version}</version>
                                 </feature>
                                 <!-- END - Multitenancy related -->
                             </features>

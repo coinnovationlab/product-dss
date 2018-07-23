@@ -34,7 +34,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.wso2.carbon.data</groupId>
+            <groupId>co.innovation.lab.wso2.dss</groupId>
             <artifactId>org.wso2.carbon.dataservices.fileupload.stub</artifactId>
             <scope>compile</scope>
         </dependency>
