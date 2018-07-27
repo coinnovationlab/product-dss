@@ -20,6 +20,7 @@ Below there are listed the improvements done in order to make this product more 
 
 ### 2. OData parameters configuration :  
   - DB Schema parameter configuration 
+  - Filter the list of tables exposed over OData
   - Possibility to configure and read views not only tables
   - Columns configuration in order to limit the list of columns to be exposed over OData Service.
   - Columns Type configuration in order to have the possibility to transform the type of data that are defined in specific format but contain another data type.
