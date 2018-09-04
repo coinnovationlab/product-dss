@@ -39,6 +39,7 @@ Below there are listed the improvements done in order to make this product more 
   - Tenant selection on login if the same user is part of multi spaces.
   - Provision of tenants and users on the fly by defining access level depending on AAC Roles.
 
+Please refer to the [Wiki](https://github.com/coinnovationlab/product-dss/wiki) for any further information regarding installation, usage, etc.
 
 
 
