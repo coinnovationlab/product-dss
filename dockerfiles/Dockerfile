@@ -9,7 +9,7 @@ ARG USER_GROUP=wso2
 ARG USER_GROUP_ID=802
 ARG USER_HOME=/home/${USER}
 # set dependant files directory
-ARG FILES=./dockerfile
+ARG FILES=./buildfiles
 # set jdk configurations
 ARG JDK=jdk1.8.0*
 ARG JAVA_HOME=${USER_HOME}/java

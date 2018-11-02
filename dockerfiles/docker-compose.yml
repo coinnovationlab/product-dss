@@ -7,7 +7,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./mysql/scripts:/docker-entrypoint-initdb.d
+      - ./conf/mysql:/docker-entrypoint-initdb.d
     command: [--ssl=0]
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-uroot", "-proot"]
@@ -15,7 +15,7 @@ services:
       timeout: 60s
       retries: 5
   dss:
-    image: dss
+    image: wso2dss:latest 
     healthcheck:
       test: ["CMD", "curl", "-k", "-f", "https://localhost:9443/carbon/admin/login.jsp"]
       interval: 10s
@@ -25,7 +25,7 @@ services:
       mysql:
         condition: service_healthy
     volumes:
-      - ./dss:/home/wso2carbon/wso2-server-volume
+      - ./conf/dss:/home/wso2carbon/wso2-server-volume
     ports:
       - "9443:9443"
       - "9763:9763"
@@ -34,7 +34,7 @@ services:
   aac:
     image: aac
     volumes:
-      - ./aac/application-local.yml:/home/aac/aac/src/main/resources/application-local.yml
+      - ./conf/aac/application-local.yml:/home/aac/aac/src/main/resources/application-local.yml
     ports:
       - "8080:8080"
     healthcheck:
@@ -44,8 +44,6 @@ services:
       retries: 15
     depends_on:
       mysql:
-        condition: service_healthy
-      api-manager:
         condition: service_healthy
     links:
       - mysql  
