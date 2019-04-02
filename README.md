@@ -39,6 +39,13 @@ Below there are listed the improvements done in order to make this product more 
   - Tenant selection on login if the same user is part of multi spaces.
   - Provision of tenants and users on the fly by defining access level depending on AAC Roles.
 
+# Docker Image Build
+  - Install java and maven.
+  - Build wso2dss with the following command:
+    - mvn clean install -Dmaven.test.skip=true
+  - Copy jdk1.8.0, wso2dss and databese driver to dockerfiles/buildfiles .
+  - Run docker build command
+
 Please refer to the [Wiki](https://github.com/coinnovationlab/product-dss/wiki) for any further information regarding installation, usage, etc.
 
 
