@@ -34,7 +34,7 @@ xml_uncomment 'HostName' "${conf_path}/${conf_file}"
 xml_uncomment 'MgtHostName' "${conf_path}/${conf_file}"
 xml_replace '_:HostName' "${DSS_REVERSEPROXY}" '_:Server' "${conf_path}/${conf_file}"
 xml_replace '_:MgtHostName' "${DSS_REVERSEPROXY}" '_:Server' "${conf_path}/${conf_file}"
-xml_replace '_:ServerURL' "${DSS_SERVER_URL}/services/" '_:Server' "${conf_path}/${conf_file}"
+xml_replace '_:ServerURL' "${DSS_HOSTNAME}/services/" '_:Server' "${conf_path}/${conf_file}"
 
 # Directory ${WSO2_SERVER_HOME}/repository/conf/datasources
 conf_path="${WSO2_SERVER_HOME}/repository/conf/datasources"
@@ -61,7 +61,7 @@ xml_add 'Parameter' 'AAC' '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAu
 xml_append_attr '_:Parameter' 'name=OauthProviderName' '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config' "${conf_path}/${conf_file}"
 xml_append 'Parameter' '/carbon/admin/login.jsp' '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="OauthProviderName"]' "${conf_path}/${conf_file}" 'name=LoginPage'
 xml_append 'Parameter' 'carbonServer' '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="LoginPage"]' "${conf_path}/${conf_file}" 'name=ServiceProviderID'
-xml_append 'Parameter' "${AAC_REVERSEPROXY}/aac" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="ServiceProviderID"]' "${conf_path}/${conf_file}" 'name=IdentityProviderSSOServiceURL'
+xml_append 'Parameter' "${AAC_REVERSEPROXY}" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="ServiceProviderID"]' "${conf_path}/${conf_file}" 'name=IdentityProviderSSOServiceURL'
 xml_append 'Parameter' "${DSS_SERVER_URL}/carbon/oauth2-sso-acs/custom_login.jsp" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="IdentityProviderSSOServiceURL"]' "${conf_path}/${conf_file}" 'name=LandingPage'
 xml_append 'Parameter' "${DSS_SERVER_URL}/oauth2_acs" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="LandingPage"]' "${conf_path}/${conf_file}" 'name=RedirectURL'
 xml_append 'Parameter' "true" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="RedirectURL"]' "${conf_path}/${conf_file}" 'name=UserProvisioningEnabled'
@@ -69,13 +69,13 @@ xml_append 'Parameter' "true" '//_:Authenticators/_:Authenticator[@name="OAUTH2S
 xml_append 'Parameter' "${DSS_REVERSEPROXY}" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="TenantProvisioningEnabled"]' "${conf_path}/${conf_file}" 'name=TenantDefault'
 xml_append 'Parameter' "${AAC_CONSUMERKEY}" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="TenantDefault"]' "${conf_path}/${conf_file}" 'name=ClientID'
 xml_append 'Parameter' "${AAC_CONSUMERSECRET}" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="ClientID"]' "${conf_path}/${conf_file}" 'name=ClientSecret'
-xml_append 'Parameter' "${AAC_REVERSEPROXY}/aac/oauth/authorize" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="ClientSecret"]' "${conf_path}/${conf_file}" 'name=AuthorizationURL'
-xml_append 'Parameter' "${AAC_REVERSEPROXY}/aac/oauth/token" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="AuthorizationURL"]' "${conf_path}/${conf_file}" 'name=TokenURL'
-xml_append 'Parameter' "${AAC_REVERSEPROXY}/aac/resources/token" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="TokenURL"]' "${conf_path}/${conf_file}" 'name=CheckTokenEndpointUrl'
-xml_append 'Parameter' "${AAC_REVERSEPROXY}/aac/basicprofile/me" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="CheckTokenEndpointUrl"]' "${conf_path}/${conf_file}" 'name=APIUserInfoURL'
-xml_append 'Parameter' "${AAC_REVERSEPROXY}/aac/userroles/me" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="APIUserInfoURL"]' "${conf_path}/${conf_file}" 'name=APIRoleInfoURL'
-xml_append 'Parameter' "${AAC_REVERSEPROXY}/aac/userroles/token" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="APIRoleInfoURL"]' "${conf_path}/${conf_file}" 'name=GetRolesOfTokenURL'
-xml_append 'Parameter' "${AAC_REVERSEPROXY}/aac/aac/apikeycheck" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="GetRolesOfTokenURL"]' "${conf_path}/${conf_file}" 'name=ApiKeyCheckURL'
+xml_append 'Parameter' "${AAC_REVERSEPROXY}/oauth/authorize" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="ClientSecret"]' "${conf_path}/${conf_file}" 'name=AuthorizationURL'
+xml_append 'Parameter' "${AAC_HOSTNAME}/oauth/token" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="AuthorizationURL"]' "${conf_path}/${conf_file}" 'name=TokenURL'
+xml_append 'Parameter' "${AAC_HOSTNAME}/resources/token" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="TokenURL"]' "${conf_path}/${conf_file}" 'name=CheckTokenEndpointUrl'
+xml_append 'Parameter' "${AAC_HOSTNAME}/basicprofile/me" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="CheckTokenEndpointUrl"]' "${conf_path}/${conf_file}" 'name=APIUserInfoURL'
+xml_append 'Parameter' "${AAC_HOSTNAME}/userroles/me" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="APIUserInfoURL"]' "${conf_path}/${conf_file}" 'name=APIRoleInfoURL'
+xml_append 'Parameter' "${AAC_HOSTNAME}/userroles/token" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="APIRoleInfoURL"]' "${conf_path}/${conf_file}" 'name=GetRolesOfTokenURL'
+xml_append 'Parameter' "${AAC_HOSTNAME}/apikeycheck" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="GetRolesOfTokenURL"]' "${conf_path}/${conf_file}" 'name=ApiKeyCheckURL'
 xml_append 'Parameter' "86400" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="ApiKeyCheckURL"]' "${conf_path}/${conf_file}" 'name=MaxExpireSecToken'
 xml_append 'Parameter' "profile.basicprofile.me profile.accountprofile.me user.roles.me user.roles.read" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="MaxExpireSecToken"]' "${conf_path}/${conf_file}" 'name=ScopesListUserInfo'
 xml_append 'Parameter' "username" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="ScopesListUserInfo"]' "${conf_path}/${conf_file}" 'name=UserNameField'
@@ -97,9 +97,9 @@ prop_replace 'org.owasp.csrfguard.UnprotectedMethods' 'GET,POST' "${conf_path}/$
 conf_path="${WSO2_SERVER_HOME}/repository/conf/tomcat"
 conf_file='catalina-server.xml'
 echo ${conf_file}
-## Edit properties in catalina-server.xml file
+## Edit properties in catalina-server.xml file   
 xml_append_attr 'Connector[@port="9443"]' "proxyName=${DSS_REVERSEPROXY}" '/Server/Service' "${conf_path}/${conf_file}"
-xml_append_attr 'Connector[@port="9443"]' 'proxyPort=443' '/Server/Service' "${conf_path}/${conf_file}"
+xml_append_attr 'Connector[@port="9443"]' 'proxyPort=9445' '/Server/Service' "${conf_path}/${conf_file}"
 
 # Directory ${WSO2_SERVER_HOME}/repository/conf/tomcat
 conf_path="${WSO2_SERVER_HOME}/repository/conf/tomcat"
