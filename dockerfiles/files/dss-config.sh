@@ -99,7 +99,7 @@ conf_file='catalina-server.xml'
 echo ${conf_file}
 ## Edit properties in catalina-server.xml file   
 xml_append_attr 'Connector[@port="9443"]' "proxyName=${DSS_REVERSEPROXY}" '/Server/Service' "${conf_path}/${conf_file}"
-xml_append_attr 'Connector[@port="9443"]' 'proxyPort=9445' '/Server/Service' "${conf_path}/${conf_file}"
+xml_append_attr 'Connector[@port="9443"]' 'proxyPort=443' '/Server/Service' "${conf_path}/${conf_file}"
 
 # Directory ${WSO2_SERVER_HOME}/repository/conf/tomcat
 conf_path="${WSO2_SERVER_HOME}/repository/conf/tomcat"
