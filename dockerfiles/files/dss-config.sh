@@ -79,7 +79,7 @@ xml_append 'Parameter' "${AAC_HOSTNAME}/apikeycheck" '//_:Authenticators/_:Authe
 xml_append 'Parameter' "86400" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="ApiKeyCheckURL"]' "${conf_path}/${conf_file}" 'name=MaxExpireSecToken'
 xml_append 'Parameter' "profile.basicprofile.me profile.accountprofile.me user.roles.me user.roles.read" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="MaxExpireSecToken"]' "${conf_path}/${conf_file}" 'name=ScopesListUserInfo'
 xml_append 'Parameter' "username" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="ScopesListUserInfo"]' "${conf_path}/${conf_file}" 'name=UserNameField'
-xml_append 'Parameter' "components/dss.com" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="UserNameField"]' "${conf_path}/${conf_file}" 'name=RoleContext'
+xml_append 'Parameter' "${DSS_ROLE_CONTEXT}" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="UserNameField"]' "${conf_path}/${conf_file}" 'name=RoleContext'
 xml_append 'Parameter' "${DSS_SERVER_URL}/carbon/oauth2-sso-acs/select_tenant.jsp" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="RoleContext"]' "${conf_path}/${conf_file}" 'name=SelectTenantURL'
 xml_append 'Parameter' "${DSS_SERVER_URL}/forwardtenant" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="SelectTenantURL"]' "${conf_path}/${conf_file}" 'name=TenantSelectedURL'
 xml_append 'Parameter' "org.wso2.carbon.dataservices.core.security.filter.ServicesSecurityFilter" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="TenantSelectedURL"]' "${conf_path}/${conf_file}" 'name=SecurityFilterClass'
@@ -99,7 +99,7 @@ conf_file='catalina-server.xml'
 echo ${conf_file}
 ## Edit properties in catalina-server.xml file   
 xml_append_attr 'Connector[@port="9443"]' "proxyName=${DSS_REVERSEPROXY}" '/Server/Service' "${conf_path}/${conf_file}"
-xml_append_attr 'Connector[@port="9443"]' 'proxyPort=443' '/Server/Service' "${conf_path}/${conf_file}"
+xml_append_attr 'Connector[@port="9443"]' 'proxyPort=${DSS_PORT}' '/Server/Service' "${conf_path}/${conf_file}"
 
 # Directory ${WSO2_SERVER_HOME}/repository/conf/tomcat
 conf_path="${WSO2_SERVER_HOME}/repository/conf/tomcat"
