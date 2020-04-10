@@ -17,6 +17,12 @@
 # MYSQL_USER="user"
 # MYSQL_PASS="pass"
 # DSS_DRIVER_CLASS_NAME="com.mysql.jdbc.Driver"
+# DSS_KEYSTORE_FILENAME="dss.jks"
+# DSS_KEYSTORE_PASS="kubetest"
+# DSS_KEYSTORE_KEYALIAS="dss"
+# DSS_TRUSTSTORE_FILENAME="client.jks"
+# DSS_TRUSTSTORE_PASS="kubetest"
+# DSS_PORT="443"
 
 # Directory ${WSO2_SERVER_HOME}/repository/conf
 conf_path="${WSO2_SERVER_HOME}/repository/conf"
@@ -35,6 +41,19 @@ xml_uncomment 'MgtHostName' "${conf_path}/${conf_file}"
 xml_replace '_:HostName' "${DSS_REVERSEPROXY}" '_:Server' "${conf_path}/${conf_file}"
 xml_replace '_:MgtHostName' "${DSS_REVERSEPROXY}" '_:Server' "${conf_path}/${conf_file}"
 xml_replace '_:ServerURL' "${DSS_SERVER_URL}/services/" '_:Server' "${conf_path}/${conf_file}"
+if [ ! -z ${DSS_KEYSTORE_FILENAME} ]; then
+  xml_replace '_:Location' "\${carbon.home}/repository/resources/security/${DSS_KEYSTORE_FILENAME}" '_:Server/_:Security/_:KeyStore' "${conf_path}/${conf_file}"
+  xml_replace '_:Password' "${DSS_KEYSTORE_PASS}" '_:Server/_:Security/_:KeyStore' "${conf_path}/${conf_file}"
+  xml_replace '_:KeyAlias' "${DSS_KEYSTORE_KEYALIAS}" '_:Server/_:Security/_:KeyStore' "${conf_path}/${conf_file}"
+  xml_replace '_:KeyPassword' "${DSS_KEYSTORE_PASS}" '_:Server/_:Security/_:KeyStore' "${conf_path}/${conf_file}"
+  xml_replace '_:Location' "\${carbon.home}/repository/resources/security/${DSS_TRUSTSTORE_FILENAME}" '_:Server/_:Security/_:TrustStore' "${conf_path}/${conf_file}"
+  xml_replace '_:Password' "${DSS_TRUSTSTORE_PASS}" '_:Server/_:Security/_:TrustStore' "${conf_path}/${conf_file}"
+fi
+
+# Edit properties in sec.policy file
+conf_file='sec.policy'
+echo ${conf_file}
+sed -i -e "s|wso2carbon.jks|${DSS_KEYSTORE_FILENAME}|" "${conf_path}/${conf_file}"
 
 # Directory ${WSO2_SERVER_HOME}/repository/conf/datasources
 conf_path="${WSO2_SERVER_HOME}/repository/conf/datasources"
@@ -100,6 +119,10 @@ echo ${conf_file}
 ## Edit properties in catalina-server.xml file
 xml_append_attr 'Connector[@port="9443"]' "proxyName=${DSS_REVERSEPROXY}" '/Server/Service' "${conf_path}/${conf_file}"
 xml_append_attr 'Connector[@port="9443"]' "proxyPort=${DSS_PORT}" '/Server/Service' "${conf_path}/${conf_file}"
+if [ ! -z ${DSS_KEYSTORE_FILENAME} ]; then
+  xml_replace '@keystoreFile' "\${carbon.home}/repository/resources/security/${DSS_KEYSTORE_FILENAME}" '/Server/Service/Connector[@port="9443"]' "${conf_path}/${conf_file}"
+  xml_replace '@keystorePass' "${DSS_KEYSTORE_PASS}" '/Server/Service/Connector[@port="9443"]' "${conf_path}/${conf_file}"
+fi
 
 # Directory ${WSO2_SERVER_HOME}/repository/conf/tomcat
 conf_path="${WSO2_SERVER_HOME}/repository/conf/tomcat"
@@ -109,3 +132,13 @@ echo ${conf_file}
 sed -i ':a;N;$!ba;s/xmlns.*=".*"\n//g' "${conf_path}/${conf_file}"
 xml_add 'cookie-config' ' ' '//web-app/session-config' "${conf_path}/${conf_file}"
 xml_add 'name' 'JSESSIONID_DSS' '//web-app/session-config/cookie-config' "${conf_path}/${conf_file}"
+
+### Directory ${WSO2_SERVER_HOME}/repository/conf/identity
+conf_path="${WSO2_SERVER_HOME}/repository/conf/identity"
+## Edit properties in identity.xmln
+conf_file='identity.xml'
+echo ${conf_file}
+if [ ! -z ${DSS_KEYSTORE_FILENAME} ]; then
+  xml_replace '_:Location' "\${carbon.home}/repository/resources/security/${DSS_KEYSTORE_FILENAME}" '//_:Server/_:EntitlementSettings/_:ThirftBasedEntitlementConfig/_:KeyStore' "${conf_path}/${conf_file}"
+  xml_replace '_:Password' "${DSS_KEYSTORE_PASS}" '//_:Server/_:EntitlementSettings/_:ThirftBasedEntitlementConfig/_:KeyStore' "${conf_path}/${conf_file}"
+fi

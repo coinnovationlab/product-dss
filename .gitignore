@@ -8,3 +8,4 @@ target
 *.ipr
 .idea
 dockerfiles/files/*.jar
+dockerfiles/files/wso2dss-3.5.2
