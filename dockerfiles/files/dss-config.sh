@@ -121,6 +121,7 @@ echo ${conf_file}
 ## Edit properties in catalina-server.xml file
 xml_append_attr 'Connector[@port="9443"]' "proxyName=${DSS_REVERSEPROXY}" '/Server/Service' "${conf_path}/${conf_file}"
 xml_append_attr 'Connector[@port="9443"]' "proxyPort=${DSS_PORT}" '/Server/Service' "${conf_path}/${conf_file}"
+xml_replace '@maxHttpHeaderSize' "65536" '/Server/Service/Connector[@port="9443"]' "${conf_path}/${conf_file}"
 if [ ! -z ${DSS_KEYSTORE_FILENAME} ]; then
   xml_replace '@keystoreFile' "\${carbon.home}/repository/resources/security/${DSS_KEYSTORE_FILENAME}" '/Server/Service/Connector[@port="9443"]' "${conf_path}/${conf_file}"
   xml_replace '@keystorePass' "${DSS_KEYSTORE_PASS}" '/Server/Service/Connector[@port="9443"]' "${conf_path}/${conf_file}"
