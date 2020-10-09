@@ -31,6 +31,7 @@ conf_file='user-mgt.xml'
 echo ${conf_file}
 xml_replace 'UserName' ${DSS_USER} '/UserManager/Realm/Configuration/AdminUser' "${conf_path}/${conf_file}"
 xml_replace 'Password' ${DSS_PASS} '/UserManager/Realm/Configuration/AdminUser' "${conf_path}/${conf_file}"
+xml_replace '_:Property[@name="UserRolesCacheEnabled"]' "false" '//UserManager/Realm/UserStoreManager[class="org.wso2.carbon.user.core.jdbc.JDBCUserStoreManager"]' "${conf_path}/${conf_file}"
 
 # Edit properties in carbon.xml file
 ## xml with default namaspace declaration using underscore _ to match namespace
@@ -102,6 +103,7 @@ xml_append 'Parameter' "${DSS_ROLE_CONTEXT}" '//_:Authenticators/_:Authenticator
 xml_append 'Parameter' "${DSS_SERVER_URL}/carbon/oauth2-sso-acs/select_tenant.jsp" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="RoleContext"]' "${conf_path}/${conf_file}" 'name=SelectTenantURL'
 xml_append 'Parameter' "${DSS_SERVER_URL}/forwardtenant" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="SelectTenantURL"]' "${conf_path}/${conf_file}" 'name=TenantSelectedURL'
 xml_append 'Parameter' "org.wso2.carbon.dataservices.core.security.filter.ServicesSecurityFilter" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="TenantSelectedURL"]' "${conf_path}/${conf_file}" 'name=SecurityFilterClass'
+xml_append 'Parameter' "ROLE_MANAGER" '//_:Authenticators/_:Authenticator[@name="OAUTH2SSOAuthenticator"]/_:Config/_:Parameter[@name="SecurityFilterClass"]' "${conf_path}/${conf_file}" 'name=RoleProvider'
 xml_replace '_:Parameter[@name="IdentityProviderSSOServiceURL"]' "${DSS_SERVER_URL}/samlsso" '//_:Authenticators/_:Authenticator[@name="SAML2SSOAuthenticator"]/_:Config' "${conf_path}/${conf_file}"
 xml_replace '_:Parameter[@name="AssertionConsumerServiceURL"]' "${DSS_SERVER_URL}/acs" '//_:Authenticators/_:Authenticator[@name="SAML2SSOAuthenticator"]/_:Config' "${conf_path}/${conf_file}"
 
