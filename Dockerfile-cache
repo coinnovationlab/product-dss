@@ -1,0 +1,16 @@
+# syntax=docker/dockerfile:experimental
+FROM maven:3.6.0-jdk-8-alpine AS build
+COPY ./pom.xml /tmp
+COPY ./modules /tmp/modules
+COPY ./docs /tmp/docs
+COPY ./dockerfiles/files/ECLIPSE_.cer /tmp
+COPY ./dockerfiles/files/ECLIPSEF.cer /tmp
+WORKDIR /tmp
+RUN mkdir -p /etc/ssl/certs/java/
+RUN cp /tmp/ECLIPSEF.cer /etc/ssl/certs/java/ && cp /tmp/ECLIPSE_.cer /etc/ssl/certs/java/
+RUN keytool -import -file /etc/ssl/certs/java/ECLIPSE_.cer -alias eclipse -keystore "/etc/ssl/certs/java/cacerts" -storepass changeit -noprompt
+RUN keytool -import -file /etc/ssl/certs/java/ECLIPSEF.cer -alias eclipsef -keystore "/etc/ssl/certs/java/cacerts" -storepass changeit -noprompt
+RUN mvn clean install -Dmaven.test.skip=true
+
+FROM alpine
+COPY --from=build /root/.m2 /root/.m2

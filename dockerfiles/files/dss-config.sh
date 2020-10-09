@@ -32,6 +32,7 @@ echo ${conf_file}
 xml_replace 'UserName' ${DSS_USER} '/UserManager/Realm/Configuration/AdminUser' "${conf_path}/${conf_file}"
 xml_replace 'Password' ${DSS_PASS} '/UserManager/Realm/Configuration/AdminUser' "${conf_path}/${conf_file}"
 xml_replace 'Property[@name="UserRolesCacheEnabled"]' "false" '//UserManager/Realm/UserStoreManager[@class="org.wso2.carbon.user.core.jdbc.JDBCUserStoreManager"]' "${conf_path}/${conf_file}"
+xml_replace 'Property[@name="AuthorizationCacheEnabled"]' "false" '//UserManager/Realm/AuthorizationManager[@class="org.wso2.carbon.user.core.authorization.JDBCAuthorizationManager"]' "${conf_path}/${conf_file}"
 
 # Edit properties in carbon.xml file
 ## xml with default namaspace declaration using underscore _ to match namespace

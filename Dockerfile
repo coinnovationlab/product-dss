@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:experimental
 # ------------------------------------------------------------------------
 #
 # Copyright 2018 WSO2, Inc. (http://wso2.com)
@@ -28,7 +29,7 @@ RUN cp /tmp/ECLIPSEF.cer /etc/ssl/certs/java/ && cp /tmp/ECLIPSE_.cer /etc/ssl/c
 RUN keytool -import -file /etc/ssl/certs/java/ECLIPSE_.cer -alias eclipse -keystore "/etc/ssl/certs/java/cacerts" -storepass changeit -noprompt
 RUN keytool -import -file /etc/ssl/certs/java/ECLIPSEF.cer -alias eclipsef -keystore "/etc/ssl/certs/java/cacerts" -storepass changeit -noprompt
 RUN keytool -list -trustcacerts -keystore "/usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts" -storepass changeit | grep eclipse
-RUN keytool -list -trustcacerts -keystore "/usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts" -storepass changeit | grep eclipsef && \
+RUN --mount=type=bind,target=/root/.m2,source=/root/.m2,from=smartcommunitylab/dss:cache-alpine keytool -list -trustcacerts -keystore "/usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts" -storepass changeit | grep eclipsef && \
 mvn clean install -Dmaven.test.skip=true
 RUN unzip /tmp/modules/distribution/target/wso2dss-3.5.2-SNAPSHOT.zip
 RUN mv wso2dss-3.5.2-SNAPSHOT/ wso2dss-3.5.2/
