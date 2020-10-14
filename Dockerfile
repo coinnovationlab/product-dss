@@ -24,13 +24,11 @@ COPY ./docs /tmp/docs
 COPY ./dockerfiles/files/ECLIPSE_.cer /tmp
 COPY ./dockerfiles/files/ECLIPSEF.cer /tmp
 WORKDIR /tmp
-RUN mvn dependency:go-offline -B
 RUN cp /tmp/ECLIPSEF.cer /etc/ssl/certs/java/ && cp /tmp/ECLIPSE_.cer /etc/ssl/certs/java/
 RUN keytool -import -file /etc/ssl/certs/java/ECLIPSE_.cer -alias eclipse -keystore "/etc/ssl/certs/java/cacerts" -storepass changeit -noprompt
 RUN keytool -import -file /etc/ssl/certs/java/ECLIPSEF.cer -alias eclipsef -keystore "/etc/ssl/certs/java/cacerts" -storepass changeit -noprompt
 RUN keytool -list -trustcacerts -keystore "/usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts" -storepass changeit | grep eclipse
-RUN --mount=type=bind,target=/root/.m2,source=/root/.m2,from=smartcommunitylab/dss:cache-alpine keytool -list -trustcacerts -keystore "/usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts" -storepass changeit | grep eclipsef && \
-mvn clean install -Dmaven.test.skip=true
+RUN --mount=type=bind,target=/root/.m2,source=/root/.m2,from=smartcommunitylab/dss:cache-alpine mvn clean install -U -Dmaven.test.skip=true
 RUN unzip /tmp/modules/distribution/target/wso2dss-3.5.2-SNAPSHOT.zip
 RUN mv wso2dss-3.5.2-SNAPSHOT/ wso2dss-3.5.2/
 
