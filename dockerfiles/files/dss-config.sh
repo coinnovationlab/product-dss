@@ -33,6 +33,10 @@ xml_replace 'UserName' ${DSS_USER} '/UserManager/Realm/Configuration/AdminUser' 
 xml_replace 'Password' ${DSS_PASS} '/UserManager/Realm/Configuration/AdminUser' "${conf_path}/${conf_file}"
 xml_replace 'Property[@name="UserRolesCacheEnabled"]' "false" '//UserManager/Realm/UserStoreManager[@class="org.wso2.carbon.user.core.jdbc.JDBCUserStoreManager"]' "${conf_path}/${conf_file}"
 xml_replace 'Property[@name="AuthorizationCacheEnabled"]' "false" '//UserManager/Realm/AuthorizationManager[@class="org.wso2.carbon.user.core.authorization.JDBCAuthorizationManager"]' "${conf_path}/${conf_file}"
+# xml_add function with attribute
+xml_append_elem 'Property' '^[\S]{3,50}$' '/UserManager/Realm/UserStoreManager/Property[@name="UsernameJavaScriptRegEx"]' "${conf_path}/${conf_file}" 'name=UsernameWithEmailJavaScriptRegEx'
+xml_replace 'Property[@name="UsernameJavaRegEx"]' '^[\S]{3,50}$' '//UserManager/Realm/UserStoreManager[@class="org.wso2.carbon.user.core.jdbc.JDBCUserStoreManager"]' "${conf_path}/${conf_file}"
+xml_replace 'Property[@name="UserRolesCacheEnabled"]' '^[\S]{3,50}$' '//UserManager/Realm/UserStoreManager[@class="org.wso2.carbon.user.core.jdbc.JDBCUserStoreManager"]' "${conf_path}/${conf_file}"
 
 # Edit properties in carbon.xml file
 ## xml with default namaspace declaration using underscore _ to match namespace
