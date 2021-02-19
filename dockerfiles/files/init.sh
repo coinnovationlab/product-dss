@@ -42,6 +42,16 @@ if test -d ${original_deployment_artifacts}; then
     fi
 fi
 
+FILES="./ca/*"
+for f in $FILES
+do
+  filename=$(basename -- "$f")
+  filename="${filename%.*}"
+  echo "Processing $filename file..."
+  keytool -import -alias $filename -file $f -keystore ${WSO2_SERVER_HOME}/repository/resources/security/client-truststore.jks -storepass ${APIM_KEYSTORE_PASS:-wso2carbon} -noprompt
+  keytool -list -keystore ${WSO2_SERVER_HOME}/repository/resources/security/client-truststore.jks -alias $filename -storepass ${APIM_KEYSTORE_PASS:-wso2carbon} -noprompt
+done
+
 # copy any configuration changes mounted to config_volume
 test -d ${config_volume}/ && cp -RL ${config_volume}/* ${WSO2_SERVER_HOME}/
 bash ${WORKING_DIRECTORY}/dss-config.sh

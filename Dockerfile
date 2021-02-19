@@ -95,7 +95,7 @@ COPY --chown=wso2carbon:wso2 --from=builder /tmp/${WSO2_SERVER_PACK}/repository/
 COPY --chown=wso2carbon:wso2 ${FILES}/mysql-connector-java-*.jar ${WSO2_SERVER_HOME}/repository/components/lib/
 # copy aac connector jar to the server as a thids party library
 COPY --chown=wso2carbon:wso2 ${FILES}/postgresql*.jar ${WSO2_SERVER_HOME}/repository/components/lib/
-COPY --chown=wso2carbon:wso2 ${FILES}/lets-encrypt-x3-cross-signed.pem ${USER_HOME}/
+COPY --chown=wso2carbon:wso2 ${FILES}/ca ${USER_HOME}/ca
 COPY --chown=wso2carbon:wso2 ${FILES}/common.sh ${USER_HOME}/
 COPY --chown=wso2carbon:wso2 ${FILES}/dss-config.sh ${USER_HOME}/
 
